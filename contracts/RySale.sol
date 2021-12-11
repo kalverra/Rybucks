@@ -2,13 +2,13 @@
 pragma solidity ^0.8.2;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 /**
  * @title RySale
  * @dev RySale is a modified and updated version of the open zeppelin Crowdsale contract, used for RyBucks
  */
-contract RySale {
+contract RySale is Ownable {
   // The token being sold
   ERC20 public token;
 
@@ -36,6 +36,16 @@ contract RySale {
   );
 
   /**
+   * Event for the eventual transfer of 10 million RyBucks to the original Ryan
+   * @param Rydress address of the actual Ryan to send to
+   * @param amount amount of tokens sent
+   */
+  event RyFer(
+    address indexed Rydress,
+    uint256 amount
+  );
+
+  /**
    * @param _rate Number of token units a buyer gets per wei
    * @param _wallet Address where collected funds will be forwarded to
    * @param _token Address of the token being sold
@@ -51,24 +61,15 @@ contract RySale {
   }
 
   // -----------------------------------------
-  // Crowdsale external interface
+  // RySale external interface
   // -----------------------------------------
 
   /**
-   * @dev fallback function ***DO NOT OVERRIDE***
+   * @dev receive function ***DO NOT OVERRIDE***
    */
   receive() external payable {
-    buyTokens(msg.sender);
-  }
-
-  /**
-   * @dev low level token purchase ***DO NOT OVERRIDE***
-   * @param _beneficiary Address performing the token purchase
-   */
-  function buyTokens(address _beneficiary) public payable {
-
     uint256 weiAmount = msg.value;
-    _preValidatePurchase(_beneficiary, weiAmount);
+    _preValidatePurchase(msg.sender, weiAmount);
 
     // calculate token amount to be created
     uint256 tokens = _getTokenAmount(weiAmount);
@@ -77,30 +78,42 @@ contract RySale {
     // update state
     weiRaised = weiRaised + weiAmount;
 
-    _processPurchase(_beneficiary, tokens);
+    _processPurchase(msg.sender, tokens);
     emit TokenPurchase(
       msg.sender,
-      _beneficiary,
+      msg.sender,
       weiAmount,
       tokens
     );
 
-    _updatePurchasingState(_beneficiary, weiAmount);
+    _updatePurchasingState(msg.sender, weiAmount);
 
     _forwardFunds();
-    _postValidatePurchase(_beneficiary, weiAmount);
+    _postValidatePurchase(msg.sender, weiAmount);
   }
 
   /**
-   * Enables buying tokens with a promo code 
+  * @dev Enables sending coins to the original and almighty Ryan. Praise be unto his name.
+  * This will send 10 million RyBucks to Ryan's address, whenever he provides it to me.
+  */
+  function sendToRyan(address _beneficiary) external onlyOwner {
+    _validateTokenAmounts(10_000_000_000_000_000_000_000_000);
+    _deliverTokens(_beneficiary, 10_000_000_000_000_000_000_000_000);
+    emit RyFer(_beneficiary, 10_000_000_000_000_000_000_000_000);
+  }
+
+  /**
+   * @dev Enables buying tokens with a promo code
+   * @param _beneficiary Address performing the token purchase
+   * @param _promo Promo code
    */
-  function buyTokensPromo(address _beneficiary, string calldata _promo) public payable {
+  function buyTokensPromo(address _beneficiary, string calldata _promo) external payable {
     require(keccak256(abi.encodePacked(_promo)) == keccak256(abi.encodePacked("#BANANAPENIS")), "Invalid promo code");
     uint256 weiAmount = msg.value;
     _preValidatePurchase(_beneficiary, weiAmount);
 
     // calculate token amount to be created
-    uint256 tokens = _getTokenAmount(weiAmount) + 10; // Add 10 for correct promo code
+    uint256 tokens = _getTokenAmount(weiAmount) + 10_000_000; // Add 10_000_000 for correct promo code
     _validateTokenAmounts(tokens);
 
     // update state
