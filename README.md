@@ -10,6 +10,8 @@ RyBucks are the true currency of the future. If you have not been brought into R
 
 This is a basic [BEP-20](https://academy.binance.com/en/glossary/bep-20) coin hosted on [Binance Smart Chain](https://www.binance.org/en/smartChain)
 
+The total supply is capped at 69 trillion (nice).
+
 Currently it's only on the Binance Test Net, mainnet launch is pending.
 
 | Contract | Chain    | Address                                    |
