@@ -1,0 +1,10 @@
+networks:
+  default: bsc-main-fork
+
+dependencies:
+  - OpenZeppelin/openzeppelin-contracts@4.4.0
+
+compiler:
+  solc:
+    remappings:
+      - '@openzeppelin=OpenZeppelin/openzeppelin-contracts@4.4.0'
