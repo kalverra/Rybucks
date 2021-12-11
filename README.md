@@ -10,12 +10,14 @@ RyBucks are the true currency of the future. If you have not been brought into R
 
 This is a basic [BEP-20](https://academy.binance.com/en/glossary/bep-20) coin hosted on [Binance Smart Chain](https://www.binance.org/en/smartChain)
 
+Currently it's only on the Binance Test Net, mainnet launch is pending.
+
 | Contract | Chain    | Address                                    |
 |----------|----------|--------------------------------------------|
-| RyBucks  | test-bsc | [0x1DE3173eE9218D08C63858E8a6edaDC18a736956](https://testnet.bscscan.com/token/0x1DE3173eE9218D08C63858E8a6edaDC18a736956) |
-| RySale   | test-bsc | [0x44625DCAc5057Bc9c0851c3367041DB7dBeeB604](https://testnet.bscscan.com/address/0x44625DCAc5057Bc9c0851c3367041DB7dBeeB604) |
-| RyBucks  | mainnet  |         |
-| RySale   | mainnet  |         |
+| RyBucks  | test-bsc | [0xAcc889a2a4e2f3a524e47453c87E3ce755711Adf](https://testnet.bscscan.com/token/0xAcc889a2a4e2f3a524e47453c87E3ce755711Adf) |
+| RySale   | test-bsc | [0x96C72e97207e83aB4624Aff639bfFa8a0e48E627](https://testnet.bscscan.com/address/0x96C72e97207e83aB4624Aff639bfFa8a0e48E627) |
+| RyBucks  | mainnet  |   TBD    |
+| RySale   | mainnet  |   TBD    |
 
 ## How do I get it?
 
